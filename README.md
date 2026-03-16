@@ -5,7 +5,7 @@
 </div>
 
 ## About
-
+'
 Wishlist is a self-hosted wishlist application that you can share with your friends and family. You no longer have to wonder what to get your parents for the holidays, simply check their wishlist and claim any available item. With a simple user interface, even the grandparents can get involved!
 
 ## Features
