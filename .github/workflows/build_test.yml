@@ -7,7 +7,7 @@ permissions:
 on:
     pull_request:
     push:
-      branches: [midterm_submission]
+      branches: [main]
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
@@ -66,11 +66,14 @@ jobs:
             - name: Install dependencies
               run: pnpm install
 
+            - name: Run Jest tests
+              run: pnpm test:unit
+
             - name: Install Playwright Browsers
               run: pnpm test:setup
 
-            - name: Run Playwright tests
-              run: pnpm test
+            - name: Run Playwright UI tests
+              run: pnpm test:ui
 
             - uses: actions/upload-artifact@v6
               if: ${{ !cancelled() }}
