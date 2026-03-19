@@ -15,7 +15,7 @@ export default defineConfig({
     testDir: "./tests",
     /* Run tests in files in parallel */
     testIgnore: [
-        '/tests/apikeygen/'
+        '**/tests/apikeygen/**'
     ],
     /* Ignore Jest tests directory */
     fullyParallel: true,
