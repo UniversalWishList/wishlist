@@ -21,3 +21,9 @@ test("generateApiKey generates a key of correct length", async () => {
     const key = await generateApiKey();
     expect(key.length).toBe(64);
 });
+
+//check if string is hex
+test("generateApiKey generates a hex string", async () => {
+    const key = await generateApiKey();
+    expect(/^[0-9a-f]+$/.test(key)).toBe(true);
+});
