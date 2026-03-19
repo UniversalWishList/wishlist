@@ -1,7 +1,7 @@
 import { generateApiKey } from "./keygen";
 
-//check is function is reconized
-test("generateApiKey function is reconized", () => {
+//check if function is recognized
+test("generateApiKey function is recognized", () => {
     expect(typeof generateApiKey).toBe("function");
 });
 
@@ -9,7 +9,7 @@ test("generateApiKey function is reconized", () => {
 test("generateApiKey returns a string", async () => {
     expect(typeof await generateApiKey()).toBe("string");
 });
-//check if 2 run thoughs are different
+//check if 2 run throughs are different
 test("generateApiKey generates unique keys", async () => {
     const key1 = await generateApiKey();
     const key2 = await generateApiKey();
