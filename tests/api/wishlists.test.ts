@@ -6,12 +6,12 @@ const headers = { Authorization: `Bearer ${API_KEY}` };
 // Testing Auth
 
 test('returns 401 without API key', async ({ request }) => {
-  const response = await request.get('/api/wishlists');
+  const response = await request.get('/api/lists');
   expect(response.status()).toBe(401);
 });
 
 test('returns 401 with invalid API key', async ({ request }) => {
-  const response = await request.get('/api/wishlists', {
+  const response = await request.get('/api/lists', {
     headers: { Authorization: 'invalid-key-example' },
   });
   expect(response.status()).toBe(401);
@@ -19,8 +19,8 @@ test('returns 401 with invalid API key', async ({ request }) => {
 
 // Testing GET
 
-test('GET /api/wishlists returns the user wishlists', async ({ request }) => {
-  const response = await request.get('/api/wishlists', { headers });
+test('GET /api/lists returns the user wishlists', async ({ request }) => {
+  const response = await request.get('/api/lists', { headers });
   expect(response.status()).toBe(200);
 
   const data = await response.json();
@@ -34,7 +34,12 @@ test('GET /api/wishlists returns the user wishlists', async ({ request }) => {
 // Testing POST - This is a base for test and probably needs to change based on implementation (what data we decide to send)
 
 test('POST /api/wishlists/:id/items adds an item', async ({ request }) => {
-  const response = await request.post('/api/wishlists/some-list-id/items', {
+
+  const listsResponse = await request.get('/api/lists', { headers });
+  const lists = await listsResponse.json();
+  const listId = lists[0].id;
+
+  const response = await request.post(`/api/lists/${listId}/items`, {
     headers,
     data: {
       name: 'Cool Headphones',
