@@ -7,6 +7,7 @@ import { listItemsUpdateSchema } from "$lib/server/validations";
 import { ItemEvent } from "$lib/events";
 import { requireLoginOrError } from "$lib/server/auth";
 import { logger } from "$lib/server/logger";
+import { validateApiKey } from "$lib/server/apiAuth";
 
 export const PATCH: RequestHandler = async ({ request, params }) => {
     await requireLoginOrError();
@@ -43,4 +44,46 @@ export const PATCH: RequestHandler = async ({ request, params }) => {
         logger.error({ err }, "Error patching list items");
         error(404, $t("errors.item-not-found"));
     }
+};
+
+export const POST: RequestHandler = async ({ request, params }) => {
+    // Validate API key
+    const { userId} = await validateApiKey(request);
+
+    // TODO: Replace with API key auth
+    const body = await request.json();
+
+    if (!body.name) {
+        error(400, "Item name is required");
+    }
+
+    const list = await client.list.findUnique({
+        where: { id: params.listId },
+    });
+
+    if (!list) {
+        error(404, "List not found");
+    }
+
+    const item = await client.item.create({
+        data: {
+            name: body.name,
+            url: body.url ?? null,
+            price: body.price ?? null,
+            note: body.note ?? null,
+            imageUrl: body.imageUrl ?? null,
+            userId: userId,
+            createdById: userId,
+        },
+    });
+
+    await client.listItem.create({
+        data: {
+            listId: params.listId,
+            itemId: item.id,
+            addedById: userId,
+        },
+    });
+
+    return new Response(JSON.stringify(item), { status: 201 });
 };
