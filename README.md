@@ -62,7 +62,7 @@ http://localhost:3280/
 <img src="./assets/wishlist-application.png" width="50%" />
 
 
-## Running the Unit Tests
+## Running the Unit Tests for API key generation
 ### Prerequisites
 - __node v24.x__
     - Ensure nodejs is installed first
@@ -97,11 +97,15 @@ pnpm test:unit
 <img src="./assets/unit-tests.png" width="40%" />
 
 
-## Where to Find Unit Tests?
-### Tests Location: tests/apikeygen/
 
-- The project includes five unit tests covering function behavior, string creation, string length, randomness, and whether generated characters are valid hexadecimal values.
-- These tests validate the API key generation logic.
+
+## Where to Find Unit Tests?
+### Tests Location for API key generation: tests/apikeygen/
+
+- The project includes six unit tests covering API key generation behavior.
+- These tests check that `generateApiKey` is defined, returns a string, generates unique values, produces the expected length, uses valid hexadecimal characters, and applies the correct `uwl_` prefix.
 
 ## keygen.tests.ts
 <img src="./assets/keygen-tests.png" width="50%" />
+
+### Tests Location for API methods: tests/api/

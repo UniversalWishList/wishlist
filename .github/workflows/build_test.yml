@@ -78,6 +78,10 @@ jobs:
             - name: Run Playwright UI tests
               run: pnpm test:ui
 
+            - name: Run Playwright API tests
+              run: pnpm test:ui:api
+
+
             - uses: actions/upload-artifact@v7
               if: ${{ !cancelled() }}
               with:
