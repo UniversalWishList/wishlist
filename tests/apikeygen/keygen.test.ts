@@ -1,7 +1,7 @@
 import { generateApiKey } from "./keygen";
 
 //check is function is recognized
-test("generateApiKey function is recog  nized", () => {
+test("generateApiKey function is recognized", () => {
     expect(typeof generateApiKey).toBe("function");
 });
 

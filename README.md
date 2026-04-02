@@ -100,7 +100,7 @@ pnpm test:unit
 
 
 ## Where to Find Unit Tests?
-### Tests Location for API key generation: tests/apikeygen/
+### Tests Location for API key generation: `tests/apikeygen/`
 
 - The project includes six unit tests covering API key generation behavior.
 - These tests check that `generateApiKey` is defined, returns a string, generates unique values, produces the expected length, uses valid hexadecimal characters, and applies the correct `uwl_` prefix.
@@ -108,4 +108,22 @@ pnpm test:unit
 ## keygen.tests.ts
 <img src="./assets/keygen-tests.png" width="50%" />
 
-### Tests Location for API methods: tests/api/
+### Tests Location for API methods: `tests/api/`
+
+- In addition to the API-key-generation unit tests, this repository also includes automated API tests located in `tests/api/`.
+- These tests validate authentication handling, list retrieval, and adding an item to a list through the current API endpoints.
+
+## wishlists.test.ts
+<img src="./assets/api-tests.png" width="50%" />
+
+### Running the API tests
+```sh
+pnpm test:ui:api
+```
+
+- This command is configured to run the Playwright-based API tests for the API endpoints.
+- In our current setup, these tests are most reliably verified through the Build and Test workflow in `GitHub Actions`.
+- API test execution is visible under the `Build and Test` workflow in the `GitHub Actions` tab.
+- In particular, the `Run Playwright API tests` step shows the Playwright-based API tests running in CI.
+- Local execution may fail if Docker is not available through WSL.
+- This provides a consistent environment for verifying API behavior when local Docker or WSL configuration prevents the tests from running successfully.
