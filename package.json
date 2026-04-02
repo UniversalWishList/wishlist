@@ -13,9 +13,7 @@
         "format": "prettier --write . --experimental-cli",
         "db:patch": "tsx prisma/patches/index.ts",
         "test:unit": "jest",
-        "test:unit:apikeygen": "jest tests/apikeygen",
         "test:ui": "playwright test",
-        "test:ui:api": "playwright test tests/api",
         "test": "pnpm test:unit && pnpm test:ui",
         "test:build": "docker compose -f tests/docker/docker-compose.yaml build",
         "test:setup": "playwright install --with-deps chromium"
