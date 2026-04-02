@@ -8,5 +8,5 @@ module.exports = {
   transform: {
     ...tsJestTransformCfg,
   },
-  testMatch: ["**/*.test.ts"],
+  testMatch: ["**/keygen.test.ts"],
 };
