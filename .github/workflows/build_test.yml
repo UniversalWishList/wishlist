@@ -24,10 +24,10 @@ jobs:
 
             - name: Set up Docker
               id: buildx
-              uses: docker/setup-buildx-action@v3
+              uses: docker/setup-buildx-action@v4
 
             - name: Build image
-              uses: docker/build-push-action@v6
+              uses: docker/build-push-action@v7
               with:
                   context: ./
                   file: ./Dockerfile
@@ -37,7 +37,7 @@ jobs:
                   cache-from: type=gha
                   cache-to: type=gha,mode=max
 
-            - uses: pnpm/action-setup@v4
+            - uses: pnpm/action-setup@v5
               name: Install pnpm
               id: pnpm-install
               with:
@@ -78,7 +78,7 @@ jobs:
             - name: Run Playwright UI tests
               run: pnpm test:ui
 
-            - uses: actions/upload-artifact@v6
+            - uses: actions/upload-artifact@v7
               if: ${{ !cancelled() }}
               with:
                   name: playwright-report

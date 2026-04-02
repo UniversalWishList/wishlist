@@ -1,7 +1,7 @@
 import { generateApiKey } from "./keygen";
 
-//check if function is recognized
-test("generateApiKey function is recognized", () => {
+//check is function is recognized
+test("generateApiKey function is recog  nized", () => {
     expect(typeof generateApiKey).toBe("function");
 });
 
@@ -9,7 +9,7 @@ test("generateApiKey function is recognized", () => {
 test("generateApiKey returns a string", async () => {
     expect(typeof await generateApiKey()).toBe("string");
 });
-//check if 2 run throughs are different
+//check if 2 run thoughs are different
 test("generateApiKey generates unique keys", async () => {
     const key1 = await generateApiKey();
     const key2 = await generateApiKey();
@@ -19,11 +19,18 @@ test("generateApiKey generates unique keys", async () => {
 //check if string is correct length
 test("generateApiKey generates a key of correct length", async () => {
     const key = await generateApiKey();
-    expect(key.length).toBe(64);
+    expect(key.length).toBe(68);
 });
 
 //check if string is hex
 test("generateApiKey generates a hex string", async () => {
     const key = await generateApiKey();
-    expect(/^[0-9a-f]+$/.test(key)).toBe(true);
+    const keyNoPrefix = key.slice(4);
+    expect(/^[0-9a-f]+$/.test(keyNoPrefix)).toBe(true);
+});
+
+//check if string has correct prefix
+test("generateApiKey generates a key with correct prefix", async () => {
+    const key = await generateApiKey();
+    expect(key.startsWith("uwl_")).toBe(true);
 });
