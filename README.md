@@ -1,4 +1,9 @@
 # Universal Wishlist Development
+## Purpose
+This repository contains our development work for extending the existing Universal Wishlist application. For this project,
+we are adding API-related functionality to the original Wishlist application that we forked. These API additions are intended to support our wishlist extension,
+which is being developed in a separate repository.
+
 ## Accessing the Project
 ### Cloning the Repository
 ```sh
@@ -12,7 +17,7 @@ cd wishlist
 ```
 ### Checking Out the Submission Branch
 ```sh
-git checkout midterm_submission
+git checkout initial_results
 ```
 - This branch contains our latest changes and build history required for this submission.
 
@@ -20,7 +25,7 @@ git checkout midterm_submission
 
 <img src="./assets/github-actions.png" width="40%" />
 
-- The __Actions__ tab shows both failing and passing builds from previous push commits made to the __midterm_submission__ branch.
+- The __Actions__ tab shows both failing and passing builds from previous push commits made to the __initial_results__ branch.
 - For future development, we intend for these workflows to run solely on the __main__ branch.
 - Workflows that automate unit testing appear under the __Build and Test__ workflow.
 - Workflows that generate Docker images from push commits appear under the __Build and Push Docker__ Image workflow.
