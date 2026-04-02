@@ -7,7 +7,7 @@ permissions:
 on:
     pull_request:
     push:
-      branches: [midterm_submission]
+      branches: [initial_results]
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}
     cancel-in-progress: true
