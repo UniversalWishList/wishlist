@@ -105,7 +105,7 @@ pnpm test:unit
 - The project includes six unit tests covering API key generation behavior.
 - These tests check that `generateApiKey` is defined, returns a string, generates unique values, produces the expected length, uses valid hexadecimal characters, and applies the correct `uwl_` prefix.
 
-## keygen.tests.ts
+## keygen.test.ts
 <img src="./assets/keygen-tests.png" width="50%" />
 
 ### Tests Location for API methods: `tests/api/`
