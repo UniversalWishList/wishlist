@@ -26,28 +26,35 @@ git checkout initial_results
 <img src="./assets/github-actions.png" width="40%" />
 
 - The __Actions__ tab shows both failing and passing builds from previous push commits made to the __initial_results__ branch.
-- For future development, we intend for these workflows to run solely on the __main__ branch.
+- For good development practice, we intend for these workflows to run solely on the __main__ branch.
 - Workflows that automate unit testing appear under the __Build and Test__ workflow.
 - Workflows that generate Docker images from push commits appear under the __Build and Push Docker__ Image workflow.
 
 ## Building the Wishlist Application
 ### Prerequisites
 - Before you begin, ensure the following is installed and properly configured:
-    - __Docker__ (Docker Engine + Docker Compose)
+    - __Docker__ (Docker Engine)
 - You can verify installation with:
 ```sh
 docker --version
-docker compose version
 ```
 
 ### Starting the Application
-- You can run the following commands to start the Wishlist application (from the project directory):
+-  From the project directory, run one of the following commands to build the Wishlist application image:
 ```sh
-docker compose up -d
+docker build . --tag wishlist-dev:latest
 ```
- __OR__ (depending on system permissions):
+- __OR__ (depending on system permissions):
  ```sh
-sudo docker compose up -d
+sudo docker build . --tag wishlist-dev:latest
+```
+- After the image finishes building, run the container with the following command:
+```sh
+docker run -p 3280:3280 wishlist-dev:latest
+```
+- __OR__ (depending on system permissions):
+```sh
+sudo docker run -p 3280:3280 wishlist-dev:latest
 ```
 
 ### Accessing the application

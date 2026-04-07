@@ -22,6 +22,7 @@
     <Tabs.List class="flex overflow-auto">
         <Tabs.Trigger value="profile">{$t("admin.profile")}</Tabs.Trigger>
         <Tabs.Trigger value="security">{$t("admin.security")}</Tabs.Trigger>
+        <Tabs.Trigger value="api keys">{$t("admin.api-keys")}</Tabs.Trigger>
         <Tabs.Indicator />
     </Tabs.List>
     <Tabs.Content class="flex w-fit flex-col items-center" value="profile">
@@ -65,6 +66,9 @@
         {#if data.oidcConfig.ready}
             <LinkOAuth oauthId={data.user.oauthId} providerName={data.oidcConfig.providerName} />
         {/if}
+    </Tabs.Content>
+
+      <Tabs.Content value="api keys">
     </Tabs.Content>
 </Tabs>
 
