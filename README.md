@@ -68,7 +68,15 @@ http://localhost:3280/
 
 <img src="./assets/wishlist-application.png" width="50%" />
 
-
+### Stopping a Container:
+- To list the running container(s):
+```bash
+docker ps
+```
+- To stop a running container, use the container name from the output:
+```bash
+docker kill [name of container]
+```
 ## Running the Unit Tests for API key generation
 ### Prerequisites
 - __node v24.x__
