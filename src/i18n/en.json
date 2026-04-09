@@ -37,7 +37,7 @@
         "administration": "Administration",
         "allow-public-lists": "Allow public lists",
         "allow-public-lists-tooltip": "Allow users to make a list public. Has no effect if the group is in 'Registry' mode.",
-        "api-keys": "API Keys",
+        "api-keys": "API keys",
         "build": "Build: <a class=\"{class}\" href=\"{href}\">{sha}</a>",
         "build-date": "Build Date: {buildDate}",
         "claims": "Claims",

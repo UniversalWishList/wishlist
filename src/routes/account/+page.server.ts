@@ -186,5 +186,5 @@ export const actions: Actions = {
                 id: user.id
             }
         });
-    }
+    },
 };

@@ -1,4 +1,4 @@
-import { generateApiKey } from "./keygen";
+import { generateApiKey } from "../../src/lib/server/keygen";
 
 //check is function is recognized
 test("generateApiKey function is recognized", () => {

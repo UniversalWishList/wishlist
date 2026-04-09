@@ -22,7 +22,7 @@
     <Tabs.List class="flex overflow-auto">
         <Tabs.Trigger value="profile">{$t("admin.profile")}</Tabs.Trigger>
         <Tabs.Trigger value="security">{$t("admin.security")}</Tabs.Trigger>
-        <Tabs.Trigger value="api keys">{$t("admin.api-keys")}</Tabs.Trigger>
+        <Tabs.Trigger value="api-keys">{$t("admin.api-keys")}</Tabs.Trigger>
         <Tabs.Indicator />
     </Tabs.List>
     <Tabs.Content class="flex w-fit flex-col items-center" value="profile">
@@ -68,7 +68,7 @@
         {/if}
     </Tabs.Content>
 
-      <Tabs.Content value="api keys">
+    <Tabs.Content class="grid grid-cols-1 gap-4 md:grid-cols-2" value="api-keys">
     </Tabs.Content>
 </Tabs>
 

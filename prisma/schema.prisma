@@ -26,6 +26,7 @@ model User {
     lists               List[]
     preferredLanguage   String?
     managedLists        ListManager[]
+    apiKeys             ApiKey[]
 
     @@map("user")
 }
@@ -217,4 +218,20 @@ model Patch {
     executed_at DateTime @default(now())
 
     @@map("patch")
+}
+
+model ApiKey {
+    id          String    @id @default(cuid())
+    name        String
+    keyHash     String    @unique
+    keyPrefix   String
+    user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId      String
+    createdAt   DateTime  @default(now())
+    lastUsedAt  DateTime?
+    expiresAt   DateTime?
+    revokedAt   DateTime?
+
+    @@index([userId])
+    @@map("api_key")
 }
