@@ -67,7 +67,7 @@ test("hashApiKey generates a hash of correct length", async () => {
 test("hashApiKey generates a hash that matches the original key", async () => {
     const apiKey = await generateApiKey();
     const hashedKey = await hashApiKey(apiKey);
-    const bcrypt = require('bcrypt');
+    const bcrypt = require('bcryptjs');
     const isMatch = await bcrypt.compare(apiKey, hashedKey);
     expect(isMatch).toBe(true);
 });
@@ -77,7 +77,7 @@ test("hashApiKey generates a hash that does not match a different key", async ()
     const apiKey1 = await generateApiKey();
     const apiKey2 = await generateApiKey();
     const hashedKey1 = await hashApiKey(apiKey1);
-    const bcrypt = require('bcrypt');
+    const bcrypt = require('bcryptjs');
     const isMatch = await bcrypt.compare(apiKey2, hashedKey1);
     expect(isMatch).toBe(false);
 });
@@ -87,7 +87,7 @@ test("hashApiKey generates a hash that does not match a different key", async ()
     const apiKey1 = await generateApiKey();
     const apiKey2 = await generateApiKey();
     const hashedKey1 = await hashApiKey(apiKey1);
-    const bcrypt = require('bcrypt');
+    const bcrypt = require('bcryptjs');
     const isMatch = await bcrypt.compare(apiKey2, hashedKey1);
     expect(isMatch).toBe(false);
 });
