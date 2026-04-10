@@ -12,7 +12,7 @@
     const { config }: Props = $props();
     const t = getFormatter();
 
-    let enabled = $state(config.oidc.enable);
+    let enabled = $derived(config.oidc.enable);
 </script>
 
 <SettingsGroup title={$t("admin.oidc")}>
@@ -41,7 +41,7 @@
                     name="oidcProviderName"
                     class="input"
                     autocomplete="off"
-                    placeholder="OAuth"
+                    placeholder={$t("general.oauth")}
                     type="text"
                     value={config.oidc.providerName}
                 />
@@ -66,6 +66,42 @@
                 required
                 value={config.oidc.clientSecret}
             />
+
+            <Setting>
+                <label class="label" for="oidcNameClaim">
+                    <span>Name claim</span>
+                    <input
+                        id="oidcNameClaim"
+                        name="oidcNameClaim"
+                        class="input"
+                        autocomplete="off"
+                        placeholder="name"
+                        type="text"
+                        value={config.oidc.nameClaim}
+                    />
+                </label>
+                {#snippet description()}
+                    {$t("admin.oidc-claim-name-description")}
+                {/snippet}
+            </Setting>
+
+            <Setting>
+                <label class="label" for="oidcUsernameClaim">
+                    <span>Username claim</span>
+                    <input
+                        id="oidcUsernameClaim"
+                        name="oidcUsernameClaim"
+                        class="input"
+                        autocomplete="off"
+                        placeholder="preferred_username"
+                        type="text"
+                        value={config.oidc.usernameClaim}
+                    />
+                </label>
+                {#snippet description()}
+                    {$t("admin.oidc-claim-username-description")}
+                {/snippet}
+            </Setting>
 
             <Setting class="col-span-full">
                 <label class="checkbox-label">

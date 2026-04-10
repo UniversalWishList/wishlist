@@ -2,6 +2,7 @@
     import { enhance } from "$app/forms";
     import ChangePassword from "$lib/components/account/ChangePassword.svelte";
     import EditProfile from "$lib/components/account/EditProfile.svelte";
+    import ApiKeys from "$lib/components/account/ApiKeys.svelte";
     import Avatar from "$lib/components/Avatar.svelte";
     import { FileUpload, Tabs } from "@skeletonlabs/skeleton-svelte";
     import type { PageProps } from "./$types";
@@ -22,6 +23,7 @@
     <Tabs.List class="flex overflow-auto">
         <Tabs.Trigger value="profile">{$t("admin.profile")}</Tabs.Trigger>
         <Tabs.Trigger value="security">{$t("admin.security")}</Tabs.Trigger>
+        <Tabs.Trigger value="api-keys">{$t("admin.api-keys")}</Tabs.Trigger>
         <Tabs.Indicator />
     </Tabs.List>
     <Tabs.Content class="flex w-fit flex-col items-center" value="profile">
@@ -65,6 +67,10 @@
         {#if data.oidcConfig.ready}
             <LinkOAuth oauthId={data.user.oauthId} providerName={data.oidcConfig.providerName} />
         {/if}
+    </Tabs.Content>
+
+    <Tabs.Content value="api-keys">
+        <ApiKeys apiKeys={data.apiKeys} />
     </Tabs.Content>
 </Tabs>
 
