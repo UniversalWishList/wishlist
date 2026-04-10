@@ -91,3 +91,15 @@ test("hashApiKey generates a hash that does not match a different key", async ()
     const isMatch = await bcrypt.compare(apiKey2, hashedKey1);
     expect(isMatch).toBe(false);
 });
+
+//check if two hashes from same key compare with original key
+test("hashApiKey generates hashes that both match the original key", async () => {
+    const apiKey = await generateApiKey();
+    const hashedKey1 = await hashApiKey(apiKey);
+    const hashedKey2 = await hashApiKey(apiKey);
+    const bcrypt = require('bcrypt');
+    const isMatch1 = await bcrypt.compare(apiKey, hashedKey1);
+    const isMatch2 = await bcrypt.compare(apiKey, hashedKey2);
+    expect(isMatch1).toBe(true);
+    expect(isMatch2).toBe(true);
+});
