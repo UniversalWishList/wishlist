@@ -2,6 +2,7 @@
     import { enhance } from "$app/forms";
     import ChangePassword from "$lib/components/account/ChangePassword.svelte";
     import EditProfile from "$lib/components/account/EditProfile.svelte";
+    import ApiKeys from "$lib/components/account/ApiKeys.svelte";
     import Avatar from "$lib/components/Avatar.svelte";
     import { FileUpload, Tabs } from "@skeletonlabs/skeleton-svelte";
     import type { PageProps } from "./$types";
@@ -68,7 +69,8 @@
         {/if}
     </Tabs.Content>
 
-    <Tabs.Content class="grid grid-cols-1 gap-4 md:grid-cols-2" value="api-keys">
+    <Tabs.Content value="api-keys">
+        <ApiKeys apiKeys={data.apiKeys} />
     </Tabs.Content>
 </Tabs>
 

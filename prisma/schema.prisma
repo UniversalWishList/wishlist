@@ -230,7 +230,6 @@ model ApiKey {
     createdAt   DateTime  @default(now())
     lastUsedAt  DateTime?
     expiresAt   DateTime?
-    revokedAt   DateTime?
 
     @@index([userId])
     @@map("api_key")

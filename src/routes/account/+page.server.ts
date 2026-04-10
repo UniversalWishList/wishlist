@@ -15,6 +15,7 @@ import type { Prisma } from "$lib/generated/prisma/client";
 import { createImage, tryDeleteImage } from "$lib/server/image-util";
 import { getFormatter } from "$lib/server/i18n";
 import { hashPassword, verifyPasswordHash } from "$lib/server/password";
+import { generateApiKey, hashApiKey } from "$lib/server/keygen";
 import { getOIDCConfig } from "$lib/server/openid";
 import { logger } from "$lib/server/logger";
 
@@ -23,10 +24,28 @@ export const load: PageServerLoad = async ({ locals, fetch }) => {
 
     const oidcConfig = await getOIDCConfig(fetch);
 
+    const apiKeys = await client.apiKey.findMany({
+        where: {
+            userId: user.id
+        },
+        orderBy: {
+            createdAt: "desc"
+        },
+        select: {
+            id: true,
+            name: true,
+            keyPrefix: true,
+            createdAt: true,
+            lastUsedAt: true,
+            expiresAt: true,
+        }
+    });
+
     return {
         user,
         isProxyUser: locals.isProxyUser,
-        oidcConfig
+        oidcConfig,
+        apiKeys
     };
 };
 
@@ -187,4 +206,55 @@ export const actions: Actions = {
             }
         });
     },
+
+    createApiKey: async ({ request }) => {
+        const user = requireLogin();
+        const $t = await getFormatter();
+
+        const formData = await request.formData();
+        const rawName = formData.get("name");
+        const name = typeof rawName === "string" && rawName.trim()
+            ? rawName.trim()
+            : $t("admin.api-key-name-placeholder");
+
+        const rawKey = await generateApiKey();
+        const keyHash = await hashApiKey(rawKey);
+
+        await client.apiKey.create({
+            data: {
+                name,
+                keyHash,
+                keyPrefix: rawKey.slice(0, 12),
+                userId: user.id
+            }
+        });
+
+        return {
+            createdApiKey: rawKey
+        };
+    },
+
+   deleteApiKey: async ({ request }) => {
+        const user = requireLogin();
+        const $t = await getFormatter();
+
+        const formData = await request.formData();
+        const id = formData.get("id");
+
+        if (typeof id !== "string" || !id) {
+            return fail(400, { error: true, message: $t("admin.api-key-id-error")});
+        }
+
+        await client.apiKey.deleteMany({
+            where: {
+                id,
+                userId: user.id
+            }
+        });
+
+        return {
+            success: true
+        };
+    }
 };
+
