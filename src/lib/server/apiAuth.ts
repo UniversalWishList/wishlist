@@ -1,23 +1,50 @@
-import { client } from '$lib/server/prisma';
-import { error } from '@sveltejs/kit';
+import { client } from "$lib/server/prisma";
+import { error } from "@sveltejs/kit";
+import * as bcrypt from "bcryptjs";
 
 export async function validateApiKey(request: Request) {
-    const authHeader = request.headers.get('Authorization');
-    if (!authHeader) {
-        error(401, 'Missing API key');
+    const authHeader = request.headers.get("Authorization");
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        throw error(401, "Missing API key");
     }
 
-    const apiKey = authHeader.replace('Bearer ', '');
+    const apiKey = authHeader.slice("Bearer ".length).trim();
 
-    // TODO: Replace with real API key database lookup
-    if (apiKey === 'test-api-key-123') {
-        // Return a real user from the database for now
-        const user = await client.user.findFirst();
-        if (!user) {
-            error(401, 'No user found');
+    if (!apiKey) {
+        throw error(401, "Missing API key");
+    }
+
+    const keyPrefix = apiKey.slice(0, 12);
+
+    const candidates = await client.apiKey.findMany({
+        where: {
+            keyPrefix
+        },
+        select: {
+            id: true,
+            keyHash: true,
+            userId: true,
+            expiresAt: true
         }
-        return { userId: user.id };
+    });
+
+    for (const candidate of candidates) {
+        if (candidate.expiresAt && candidate.expiresAt < new Date()) {
+            continue;
+        }
+
+        const matches = await bcrypt.compare(apiKey, candidate.keyHash);
+
+        if (matches) {
+            await client.apiKey.update({
+                where: { id: candidate.id },
+                data: { lastUsedAt: new Date() }
+            });
+
+            return { userId: candidate.userId };
+        }
     }
 
-    error(401, 'Invalid API key');
+    throw error(401, "Invalid API key");
 }

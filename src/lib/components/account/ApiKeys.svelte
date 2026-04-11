@@ -83,7 +83,7 @@
     {#if createdApiKey}
         <section class="border-surface-200-800 flex flex-col gap-2 rounded border p-3">
             <h3 class="font-semibold">{$t("admin.api-key-created")}</h3>
-            <p class="text-sm opacity-70">{$t("admin.api-key-copy-warning")}</p>
+            <p class="text-error-400 font-bold text-sm opacity-70">{$t("admin.api-key-copy-warning")}</p>
             <code class="bg-surface-200-800 rounded p-3 text-sm break-all">{createdApiKey}</code>
         </section>
     {/if}

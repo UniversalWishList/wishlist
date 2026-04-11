@@ -11,3 +11,10 @@ export const generateApiKey = async () => {
 export const hashApiKey = async (apiKey: string) => {
   return await bcrypt.hash(apiKey, 12);
 };
+
+
+
+
+
+
+
