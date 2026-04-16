@@ -50,11 +50,10 @@ export const POST: RequestHandler = async ({ request, params }) => {
     // Validate API key
     const { userId} = await validateApiKey(request);
 
-    // TODO: Replace with API key auth
     const body = await request.json();
 
-    if (!body.name) {
-        error(400, "Item name is required");
+    if (!body.url) {
+        error(400, "Item url is required");
     }
 
     const list = await client.list.findUnique({
@@ -67,8 +66,8 @@ export const POST: RequestHandler = async ({ request, params }) => {
 
     const item = await client.item.create({
         data: {
-            name: body.name,
-            url: body.url ?? null,
+            name: body.name ?? null,
+            url: body.url,
             price: body.price ?? null,
             note: body.note ?? null,
             imageUrl: body.imageUrl ?? null,
