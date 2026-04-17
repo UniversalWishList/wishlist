@@ -8,7 +8,7 @@ permissions:
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [initial_results]
   release:
     types: [published]
 
@@ -49,7 +49,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/wishlist
             ghcr.io/${{ github.repository_owner }}/wishlist
           tags: |
-            type=edge,branch=main
+            type=edge,branch=initial_results
             type=ref,event=tag
 
       - name: Build and Push Web
