@@ -9,6 +9,5 @@ services:
             - ./data:/usr/src/app/data
         environment:
           # ORIGIN: https://wishlist.example.com
-          ORIGIN: http://localhost:3280 # The URL your users will be connecting to
+          ORIGIN: http://192.168.2.10:3280 # The URL your users will be connecting to
           TOKEN_TIME: 72 # hours until signup and password reset tokens expire
-          TEST_API_KEY: ${TEST_API_KEY}
