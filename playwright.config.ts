@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
-
+//remove in production
+import dotenv from 'dotenv';
+//added config for path to test env file (NOT TO BE COMMITED TO PRODUCTION IN FINAL PULL REQUEST)
+dotenv.config({path: '.env.test'});
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -91,6 +94,7 @@ export default defineConfig({
         timeout: 60000 * 5,
         stdout: "pipe",
         stderr: "pipe",
-        reuseExistingServer: false
+        //added reuse to TRUE in case someone wants to start their own server and run tests (may want to remove in pull request)
+        reuseExistingServer: true
     }
 });

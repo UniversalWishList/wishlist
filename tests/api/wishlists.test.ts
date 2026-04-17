@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const API_KEY = 'test-api-key-123';
+const API_KEY = process.env.TEST_API_KEY!;
 const headers = { Authorization: `Bearer ${API_KEY}` };
 
 // Testing Auth

@@ -6,7 +6,6 @@ export const GET: RequestHandler = async ({ request }) => {
     // Validate API key
     const { userId } = await validateApiKey(request);
 
-    // TODO: Replace with API key auth - for now return all lists
     const lists = await client.list.findMany({
         where: { ownerId: userId},
         select: {
