@@ -12,7 +12,7 @@ test('returns 401 without API key', async ({ request }) => {
 
 test('returns 401 with invalid API key', async ({ request }) => {
   const response = await request.get('/api/lists', {
-    headers: { Authorization: 'invalid-key-example' },
+    headers: { Authorization: 'Bearer invalid-key-example' },
   });
   expect(response.status()).toBe(401);
 });

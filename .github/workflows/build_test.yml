@@ -75,12 +75,15 @@ jobs:
             - name: Install Playwright Browsers
               run: pnpm test:setup
 
-            - name: Run Playwright UI tests
-              run: pnpm test:ui
+            - name: Run All Playwright tests
+              run: pnpm test:playwright
+              env:
+                 TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
 
             - name: Run Playwright API tests
-              run: pnpm test:ui:api
-
+              run: pnpm test:playwright:api
+              env:
+                 TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
 
             - uses: actions/upload-artifact@v7
               if: ${{ !cancelled() }}
