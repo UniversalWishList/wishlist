@@ -14,7 +14,7 @@
         "db:patch": "tsx prisma/patches/index.ts",
         "test:unit": "jest",
         "test:playwright": "playwright test",
-        "test:playwright:api": "playwright test tests/api",
+        "test:playwright:api": "playwright test api",
         "test": "pnpm test:unit && pnpm test:playwright",
         "test:build": "docker compose -f tests/docker/docker-compose.yaml build",
         "test:setup": "playwright install --with-deps chromium"

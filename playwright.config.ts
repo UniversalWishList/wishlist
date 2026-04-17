@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 //remove in production
 import dotenv from 'dotenv';
 //added config for path to test env file (NOT TO BE COMMITED TO PRODUCTION IN FINAL PULL REQUEST)
-dotenv.config({path: '.env.test'});
+dotenv.config({path: '.env.test', quiet: true });
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
