@@ -53,3 +53,8 @@ test('POST /api/wishlists/:id/items adds an item', async ({ request }) => {
   expect(item).toHaveProperty('id');
   expect(item.name).toBe('Cool Headphones');
 });
+
+
+
+
+
