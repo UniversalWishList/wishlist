@@ -36,7 +36,12 @@ test('GET /api/lists returns the user wishlists', async ({ request }) => {
 test('POST /api/wishlists/:id/items adds an item', async ({ request }) => {
 
   const listsResponse = await request.get('/api/lists', { headers });
+  expect(listsResponse.status()).toBe(200);
+
   const lists = await listsResponse.json();
+  expect(Array.isArray(lists)).toBe(true);
+  expect(lists.length).toBeGreaterThan(0);
+
   const listId = lists[0].id;
 
   const response = await request.post(`/api/lists/${listId}/items`, {
