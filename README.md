@@ -135,7 +135,7 @@ pnpm test:unit
 - Once you have generated an API key, save it in a `.env.test` file. Since the initial terminal may already be running the Docker application, create or edit the `.env.test` file from a separate terminal in the __wishlist__ project root directory.
 - The `.env.test` should look as follows:
 ### `.env.test`
-<img src="./assets/.env.test.png" width="50%" />
+<img src="./assets/test-file.png" width="50%" />
 
 - Note: replace "Your API key here" with your actual API key and no space after the '='.
 
