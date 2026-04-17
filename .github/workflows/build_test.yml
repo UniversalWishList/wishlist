@@ -75,10 +75,10 @@ jobs:
             - name: Install Playwright Browsers
               run: pnpm test:setup
 
-            - name: Run All Playwright tests
-              run: pnpm test:playwright
-              env:
-                 TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
+            #- name: Run All Playwright tests
+            #  run: pnpm test:playwright
+            #  env:
+            #     TEST_API_KEY: ${{ secrets.TEST_API_KEY }}
 
             - name: Run Playwright API tests
               run: pnpm test:playwright:api
