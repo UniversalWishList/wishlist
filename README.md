@@ -171,7 +171,7 @@ pnpm exec playwright show-report
 
 - To see that your wishlist has the item, open the 'My Lists' tab and click on the default wishlist, you should then see that the item has been added to the 'My Wishes' window.
 
-### POST item to WishList
+### 'POST' item to WishList
 <img src="./assets/wishlist-window.png" width="50%" />
 
 - For testing the GET method you can alternatively call a `curl` response that returns your list(s) contents.
