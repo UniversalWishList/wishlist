@@ -8,6 +8,13 @@ import { ItemEvent } from "$lib/events";
 import { requireLoginOrError } from "$lib/server/auth";
 import { logger } from "$lib/server/logger";
 import { validateApiKey } from "$lib/server/apiAuth";
+// for extracting metadata helper function
+import { extractProductMetadata } from "$lib/server/productMetadata";
+// for creating the image
+import { createImage } from "$lib/server/image-util";
+// for handling price
+import { getMinorUnits } from "$lib/price-formatter";
+import { getLocale } from "$lib/server/i18n";
 
 export const PATCH: RequestHandler = async ({ request, params }) => {
     await requireLoginOrError();
@@ -50,11 +57,10 @@ export const POST: RequestHandler = async ({ request, params }) => {
     // Validate API key
     const { userId} = await validateApiKey(request);
 
-    // TODO: Replace with API key auth
     const body = await request.json();
 
-    if (!body.name) {
-        error(400, "Item name is required");
+    if (!body.url) {
+        error(400, "Item URL is required");
     }
 
     const list = await client.list.findUnique({
@@ -65,13 +71,66 @@ export const POST: RequestHandler = async ({ request, params }) => {
         error(404, "List not found");
     }
 
+    let extracted = null;
+    try {
+        extracted = await extractProductMetadata(new URL(body.url));
+    } catch (err) {
+        logger.warn({ err, url: body.url }, "Failed to extract metadata from URL");
+    }
+
+    const finalName = body.name ?? extracted?.name ?? extracted?.title ?? null;
+    const finalUrl = body.url ?? extracted?.url ?? null;
+    const finalPrice = body.price ?? extracted?.price ?? null;
+    const finalCurrency = body.currency ?? extracted?.currency ?? null;
+    const finalNote = body.note ?? null;
+    const finalImageUrl = body.imageUrl ?? extracted?.image ?? null;
+
+    if (!finalName) {
+        error(400, "Item name is required if extraction fails");
+    }
+
+    let newImageFile: string | undefined | null = null;
+
+    if (finalImageUrl) {
+        try {
+            newImageFile = await createImage(finalName, finalImageUrl);
+        } catch (err) {
+            logger.warn({ err, imageUrl: finalImageUrl }, "Failed to create image from URL");
+        }
+    }
+
+    let itemPriceId: string | null = null;
+
+    if (finalPrice && finalCurrency) {
+        const itemPrice = await client.itemPrice.create({
+            data: {
+                value: getMinorUnits(Number(finalPrice), finalCurrency, getLocale()),
+                currency: finalCurrency
+            }
+        });
+        itemPriceId = itemPrice.id;
+    }
+    // DEBUGGING PURPOSES TO REMOVE
+    console.log("Extracted metadata:", extracted);
+    console.log("Final item data:", {
+        finalName,
+        finalUrl,
+        finalPrice,
+        finalCurrency,
+        finalNote,
+        finalImageUrl,
+        itemPriceId,
+        userId
+    });
+    //
+
     const item = await client.item.create({
         data: {
-            name: body.name,
-            url: body.url ?? null,
-            price: body.price ?? null,
-            note: body.note ?? null,
-            imageUrl: body.imageUrl ?? null,
+            name: finalName,
+            url: finalUrl,
+            itemPriceId: itemPriceId,
+            note: finalNote,
+            imageUrl: newImageFile,
             userId: userId,
             createdById: userId,
         },
