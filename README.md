@@ -1,10 +1,13 @@
-# Universal Wishlist Development
+# Universal Wish List
+
 ## Purpose
-This repository contains our development work for extending the existing Universal Wishlist application. For this project,
-we are adding API-related functionality to the original Wishlist application that we forked. These API additions are intended to support our Wishlist Chrome extension, which is being developed in a separate repository within the __Universal Wishlist Organization__, `https://github.com/UniversalWishList/chrome-extension`. API functionality currently includes API key generation within the Wishlist application and API key validation with a POST method for adding an item to a list, and a GET method for fetching list(s) information.
+
+This repository contains our development work for extending the existing Universal Wishlist application. For this project, we are adding API-related functionality to the original Wishlist application that we forked. These API additions are intended to support our Wishlist Chrome extension, which is being developed in a separate repository within the __Universal Wishlist Organization__, `https://github.com/UniversalWishList/chrome-extension`. API functionality currently includes API key generation within the Wishlist application and API key validation with a POST method for adding an item to a list, and a GET method for fetching list(s) information.
 
 ## Accessing the Project
+
 ### Cloning the Repository
+
 ```sh
 git clone https://github.com/UniversalWishList/wishlist.git
 ```
@@ -118,7 +121,7 @@ pnpm test:unit
 - These tests validate authentication handling, list retrieval, and adding an item to a list through the current API endpoints with API key validation.
 
 ## Running the API tests with API key generation/validation within the Wishlist Application
-## ** Creating an API key **
+## Creating an API key
 - In order to successfully test the APIs you must first create and account within the wishlist application and an API key.
 - So if you've successfully followed the application build instructions and created an account, you should be able to find the 'API keys' within the 'Account' section under your profile icon.
 - Note: you __must__ keep the Docker application actively running the whole time when you are running the API tests.
